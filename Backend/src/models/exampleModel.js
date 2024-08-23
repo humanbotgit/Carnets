@@ -1,5 +1,4 @@
-// models/exampleModel.js
-const db = require('../../config/db'); // Asegúrate de que la ruta sea correcta
+const db = require('../../config/db');
 
 const getExampleData = async () => {
     try {
