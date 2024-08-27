@@ -10,7 +10,7 @@ exports.getCampus = async (req, res) => {
 };
 exports.postCampus = async (req, res) => {
     try {
-        const campus = req.params.campus
+        const campus = req.body.campus
         const data = await campusModel.postCampus(campus);
         res.json(data);
     } catch (err) {
