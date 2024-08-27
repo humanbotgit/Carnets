@@ -3,7 +3,7 @@ const db = require('../../config/db')
 const getCampus = async () =>{
     try {
         const [rows] = await db.query('SELECT * FROM campus');
-        return [rows]
+        return rows
     } catch (error) {
         throw new Error('Error fetching data: ' + err.message);
     }
