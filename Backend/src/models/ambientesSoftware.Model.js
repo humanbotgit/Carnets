@@ -1,12 +1,20 @@
 const db = require('../../config/db')
-const getPabellones = async (campus_id) =>{
+const getPabellones = async (campus_id) => {
     try {
-        const [rows] = await db.query('SELECT * FROM pabellon WHERE campus_id = ?',campus_id);
-        return rows
+        const [pabellones] = await db.query('SELECT * FROM pabellon WHERE campus_id = ?', [campus_id]);
+        const [ambientesxpabellon] = await db.query(
+            'SELECT COUNT(*) AS ambientes_count FROM pabellon WHERE campus_id = ?', [campus_id]
+        );
+        const pabellon = {
+            pabellones: pabellones,
+            ambientes: ambientesxpabellon[0].ambientes_count
+        };
+        return pabellon;
     } catch (error) {
-        throw new Error('Error fetching data: ' + err.message);
+        throw new Error('Error fetching data: ' + error.message);
     }
 }
+
 const postPabellon = async (values) => {
     try {
         const [rows] = await db.query(
