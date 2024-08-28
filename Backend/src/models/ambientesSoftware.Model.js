@@ -1,15 +1,18 @@
 const db = require('../../config/db')
 const getPabellones = async (campus_id) => {
     try {
-        const [pabellones] = await db.query('SELECT * FROM pabellon WHERE campus_id = ?', [campus_id]);
+        const [pabellones] = await db.query(
+            'SELECT * FROM pabellon where campus_id =?',[campus_id]
+        )
+        
         const [ambientesxpabellon] = await db.query(
-            'SELECT COUNT(*) AS ambientes_count FROM pabellon WHERE campus_id = ?', [campus_id]
+            'SELECT pabellon.pabellon_id, pabellon.pabellon_nombre, ambiente.ambiente_id,ambiente.ambiente_nombre FROM pabellon JOIN ambiente ON pabellon.pabellon_id = ambiente.pabellon_id WHERE pabellon.campus_id = ? ORDER BY pabellon.pabellon_id, ambiente.ambiente_nombre ASC;',[campus_id]
         );
-        const pabellon = {
-            pabellones: pabellones,
-            ambientes: ambientesxpabellon[0].ambientes_count
-        };
-        return pabellon;
+        const rows = {
+            pabellones:pabellones,
+            ambientesxpabellon:ambientesxpabellon
+        }
+        return rows
     } catch (error) {
         throw new Error('Error fetching data: ' + error.message);
     }
