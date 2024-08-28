@@ -15,6 +15,6 @@ exports.postPabellon = async (req, res) => {
         const data = await ambientesSoftware.postPabellon(values);
         res.json(data);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to post data' });
+        res.status(500).json({ error: 'Failed to post data'+err });
     }
 };
