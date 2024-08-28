@@ -4,5 +4,5 @@ const ambientesSoftwareController = require('../controllers/ambientesSoftwareCon
 
 router.get('/pabellon/:campus_id',ambientesSoftwareController.getPabellones)
 router.post('/pabellon',ambientesSoftwareController.postPabellon)
-
+router.post('/pabellon/ambiente',ambientesSoftwareController.postAmbiente)
 module.exports = router

@@ -18,3 +18,13 @@ exports.postPabellon = async (req, res) => {
         res.status(500).json({ error: 'Failed to post data'+err });
     }
 };
+exports.postAmbiente = async (req, res) => {
+    try {
+        const pabellon_id = req.body.pabellon_id
+        const ambiente_nombre = req.body.ambiente_nombre
+        const data = await ambientesSoftware.postAmbientePabellon(pabellon_id,ambiente_nombre);
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to post data'+err });
+    }
+};

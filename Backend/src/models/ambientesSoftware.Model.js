@@ -1,4 +1,4 @@
-const db = require('../../config/db')
+const db = require('../../config/db');
 const getPabellones = async (campus_id) => {
     try {
           const [pabellones] = await db.query(
@@ -37,7 +37,17 @@ const postPabellon = async (values) => {
         throw new Error('Error posting data: ' + error.message);
     }
 }
+const postAmbientePabellon = async (pabellon_id,ambiente_nombre)=>{
+    try {
+        const [rows] = await db.query(
+            'INSERT INTO ambiente(pabellon_id,ambiente_nombre) VALUES (?,?)',[pabellon_id,ambiente_nombre]);
+        return [rows]
+    } catch (error) {
+        throw new Error('Error posting data: ' + error.message);
+    }
+}
 module.exports = {
     getPabellones,
-    postPabellon
+    postPabellon,
+    postAmbientePabellon
 }
