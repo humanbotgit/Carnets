@@ -8,8 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 
 const exampleRoutes = require('./routes/exampleRoutes');
 const campusRoutes = require('./routes/campusRoutes')
+const ambientesSoftware = require('./routes/ambientesSoftwareRoutes')
+
 app.use('/api', exampleRoutes);
-app.use('/campus',campusRoutes)
+app.use('/campus',campusRoutes);
+app.use('/ambientes-software',ambientesSoftware)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Algo salió mal!');
