@@ -55,10 +55,10 @@ const postAmbientePabellon = async (pabellon_id, ambiente_nombre) => {
 const getSoftwareAmbientes = async (ambiente_id) =>{
     try {
         const [rows] = await db.query(
-            'SELECT * FROM ambiente_software where ambiente_id = ?',
+            'SELECT * FROM ambiente_software INNER JOIN software where ambiente_software.ambiente_id = ?',
             [ambiente_id] 
         )
-        return rows[0];
+        return rows;
     } catch (error) {
         throw new Error('Error posting data: ' + error.message);
     }
