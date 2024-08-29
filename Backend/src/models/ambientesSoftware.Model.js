@@ -73,11 +73,17 @@ const postSoftwareAmbiente = async (software, ambiente_id) => {
             'SELECT software_id FROM software WHERE software_nombre = ? ORDER BY software_id DESC LIMIT 1',
             [software.software_nombre] 
         );
+        await db.query(
+            'INSERT INTO ambiente_software (ambiente_id, software_id) VALUES (?, ?)',
+            [ambiente_id, rows[0].software_id]
+        );
+
         return rows[0];
     } catch (error) {
         throw new Error('Error posting data: ' + error.message);
     }
 }
+
 
 module.exports = {
     getPabellones,
