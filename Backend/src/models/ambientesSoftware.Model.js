@@ -37,26 +37,35 @@ const postPabellon = async (values) => {
         throw new Error('Error posting data: ' + error.message);
     }
 }
-const postAmbientePabellon = async (pabellon_id,ambiente_nombre)=>{
+const postAmbientePabellon = async (pabellon_id, ambiente_nombre) => {
     try {
+        await db.query(
+            'INSERT INTO ambiente (pabellon_id, ambiente_nombre) VALUES (?, ?)',
+            [pabellon_id, ambiente_nombre]
+        );
         const [rows] = await db.query(
-            'INSERT INTO ambiente(pabellon_id,ambiente_nombre) VALUES (?,?)',[pabellon_id,ambiente_nombre]);
-        return [rows]
+            'SELECT * FROM ambiente WHERE pabellon_id = ? AND ambiente_nombre = ? ORDER BY ambiente_id DESC LIMIT 1',
+            [pabellon_id, ambiente_nombre]
+        );
+        return rows[0];
     } catch (error) {
         throw new Error('Error posting data: ' + error.message);
     }
-}
-const getSoftwarexAmbiente = async(ambiente_id)=>{
+};
+const getSoftwareAmbientes = async (ambiente_id) =>{
     try {
-        const [rows] = db.query('SELECT * FROM software where ambiente = ?',[ambiente_id]);
-        return [rows]
+        const [rows] = await db.query(
+            'SELECT * FROM ambiente_software where ambiente_id = ?',
+            [ambiente_id] 
+        )
+        return rows[0];
     } catch (error) {
-        throw new Error('Error fetching data: ' + error.message);
+        throw new Error('Error posting data: ' + error.message);
     }
 }
 module.exports = {
     getPabellones,
     postPabellon,
     postAmbientePabellon,
-    getSoftwarexAmbiente
+    getSoftwareAmbientes
 }
