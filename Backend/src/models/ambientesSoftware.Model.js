@@ -70,7 +70,7 @@ const postSoftwareAmbiente = async (software,ambiente_id) =>{
         )
         const [rows] = await db.query(
             'SELECT software_id FROM software where software_nombre=? order by ambiente_id desc limit 1',
-            [software.software_nombre]
+            [ambiente_id]
         )
         return rows[0]
     } catch (error) {
