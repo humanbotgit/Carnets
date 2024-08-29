@@ -37,3 +37,13 @@ exports.getSoftwareAmbiente = async (req,res)=>{
         res.status(500).json({ error: 'Failed to get data'+error });
     }
 }
+exports.postSoftwareAmbiente = async(req,res)=>{
+    try {
+        const software = req.body.software
+        const ambiente_id = req.params.ambiente_id
+        const data = await ambientesSoftware.postSoftwareAmbiente(software,ambiente_id)
+        res.json(data)
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get data'+error });
+    }
+}

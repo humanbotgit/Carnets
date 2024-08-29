@@ -63,9 +63,24 @@ const getSoftwareAmbientes = async (ambiente_id) =>{
         throw new Error('Error posting data: ' + error.message);
     }
 }
+const postSoftwareAmbiente = async (software,ambiente_id) =>{
+    try {
+        await db.query(
+            'INSERT INTO software(software_nombre,software_exe) VALUES ?,?',[software.software_nombre,software.software_exe]
+        )
+        const [rows] = await db.query(
+            'SELECT software_id FROM software where software_nombre=? order by ambiente_id desc limit 1',
+            [software.software_nombre]
+        )
+        return rows[0]
+    } catch (error) {
+        throw new Error('Error posting data: ' + error.message);
+    }
+}
 module.exports = {
     getPabellones,
     postPabellon,
     postAmbientePabellon,
-    getSoftwareAmbientes
+    getSoftwareAmbientes,
+    postSoftwareAmbiente
 }
