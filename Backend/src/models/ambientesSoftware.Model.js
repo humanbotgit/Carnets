@@ -55,7 +55,7 @@ const postAmbientePabellon = async (pabellon_id, ambiente_nombre) => {
 const getSoftwareAmbientes = async (ambiente_id) =>{
     try {
         const [rows] = await db.query(
-            'SELECT * FROM ambiente_software INNER JOIN software where ambiente_software.ambiente_id = ?',
+            'SELECT * FROM ambiente_software RIGHT JOIN ambiente_software ON software.software_id = ambiente_software.software_id WHERE ambiente_software.ambiente_id = 1;',
             [ambiente_id] 
         )
         return rows;
@@ -83,7 +83,15 @@ const postSoftwareAmbiente = async (software, ambiente_id) => {
         throw new Error('Error posting data: ' + error.message);
     }
 }
-
+const postRegistro=async ()=>{
+    try {
+        await db.query(
+            'INSERT INTO '
+        )
+    } catch (error) {
+        
+    }
+}
 
 module.exports = {
     getPabellones,
