@@ -46,8 +46,17 @@ const postAmbientePabellon = async (pabellon_id,ambiente_nombre)=>{
         throw new Error('Error posting data: ' + error.message);
     }
 }
+const getSoftwarexAmbiente = async(ambiente_id)=>{
+    try {
+        const [rows] = db.query('SELECT * FROM software where ambiente = ?',[ambiente_id]);
+        return [rows]
+    } catch (error) {
+        throw new Error('Error fetching data: ' + error.message);
+    }
+}
 module.exports = {
     getPabellones,
     postPabellon,
-    postAmbientePabellon
+    postAmbientePabellon,
+    getSoftwarexAmbiente
 }
